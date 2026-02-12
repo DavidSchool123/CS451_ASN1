@@ -17,8 +17,8 @@ class CircularQueue{
         CircularQueue(int N){
             MaxCapacity = N;
             Items = new double[MaxCapacity];
-            First = 0;
-            Last = 0;
+            First = -1;
+            Last = -1;
         }
 
         // delete the dynamically allocated memory
@@ -32,8 +32,16 @@ class CircularQueue{
                 return;
             }
             
-            Items[Last] = newitem;
-            Last += 1;       
+            if(isEmpty()){ // empty
+
+                Last, First = 0;
+                Items[Last] = newitem;
+            }else{ //!empty
+
+                Last += 1;  // go to the next  
+                if(Last > MaxCapacity) Last = 0; // if > max cap, reset Last back to the start (circular it)
+                Items[Last] = newitem; // set item
+            }
 
         }
 
@@ -46,12 +54,11 @@ class CircularQueue{
             }
 
             double temp = Items[First];
-            First += 1;
 
+            First += 1;
+            if(First > MaxCapacity) First = 0; // reset First back to the start (circular it)
 
             return temp;
-            // subtract the remaining index by 1 push to the left. 
-            // then update content
         } 
 
         bool isEmpty(){ // if the size is equal to 0
@@ -70,7 +77,7 @@ class CircularQueue{
         int size(){
             if(Last > First) return Last - First; // we just subtract and get the absolute for it
             if(First > Last) return First - Last;
-            return 0;
+            return 0; // if first == last then it is empty
         }
 
         // print the items in the list
@@ -97,8 +104,8 @@ int main(){
     circularQ->enqueue(6);
     circularQ->enqueue(30);
     circularQ->enqueue(12);
-    circularQ->enqueue(89);
-    
+    //circularQ->enqueue(89);
+    /*
     circularQ->printQueue();
 
     circularQ->dequeue();
@@ -107,7 +114,9 @@ int main(){
     circularQ->printQueue();
 
     circularQ->enqueue(9);
-
+    circularQ->enqueue(13);
+    circularQ->enqueue(79);
+    */
     circularQ->printQueue();
 
     delete circularQ;
