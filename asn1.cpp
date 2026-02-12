@@ -36,8 +36,26 @@ class CircularQueue{
             Last += 1;       
 
         }
-        double dequeue(); // return the item and remove it 
-        bool isEmpty(); // if the size is equal to 0
+
+        // return the item and remove it 
+        double dequeue(){
+
+            if(isEmpty()){ // cant remove if there nothing in there
+                cout << "Error: array is empty, cannot remove." << endl;
+                return -1;
+            }
+
+            double temp = Items[First];
+            First += 1;
+
+            return temp;
+            // subtract the remaining index by 1 push to the left. 
+            // then update content
+        } 
+
+        bool isEmpty(){ // if the size is equal to 0
+            return size() == 0;
+        }
 
         // if the size is equal to the maz capasity
         bool isFull(){
@@ -54,7 +72,8 @@ class CircularQueue{
 
         // print the items in the list
         void printQueue(){
-            for(int i=0;i<size(); i++){
+            cout << "\n";
+            for(int i=First;i<Last; i++){
                 cout << Items[i] << " ";
             }
         }
@@ -71,6 +90,15 @@ int main(){
     circularQ->enqueue(30);
     circularQ->enqueue(12);
     circularQ->enqueue(89);
+
+    circularQ->printQueue();
+
+    circularQ->dequeue();
+    circularQ->dequeue();
+
+    circularQ->printQueue();
+
+    circularQ->enqueue(9);
 
     circularQ->printQueue();
 
