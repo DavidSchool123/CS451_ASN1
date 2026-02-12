@@ -26,17 +26,22 @@ class CircularQueue{
             delete[] Items;
         }
 
-        void enqueue(double newitem);
-        double dequeue();
-        bool isEmpty();
-        bool isFull();
-        int size();
+        void enqueue(double newitem); // add new item to the end
+        double dequeue(); // return the item and remove it 
+        bool isEmpty(); // if the size is equal to 0
+        bool isFull(); // if the size is equal to the maz capasity
+        int size(); // return the number of items in the queue
 
 };
 
 
 int main(){
-    cout << "Hello" << endl;
+    cout << "Begin" << endl;
+    CircularQueue *circularQ = new CircularQueue(5); // create a test queue with a max capacity of 5
+
+
+    delete circularQ;
+    cout << "Ran Successful" << endl;
     return 0;
 
 }
