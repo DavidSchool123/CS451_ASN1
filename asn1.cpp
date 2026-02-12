@@ -11,7 +11,6 @@ class CircularQueue{
 
         int MaxCapacity; //maximum capacity of the queue
         double* Items; //the actual items stored in the queue
-        int sizeH; // keep track when we add or remove from the array
 
     public:
         // implement the constructor
@@ -20,7 +19,6 @@ class CircularQueue{
             Items = new double[MaxCapacity];
             First = 0;
             Last = 0;
-            sizeH = 0;
         }
 
         // delete the dynamically allocated memory
@@ -35,8 +33,7 @@ class CircularQueue{
             }
             
             Items[Last] = newitem;
-            Last += 1;    
-            sizeH += 1;      
+            Last += 1;       
 
         }
         double dequeue(); // return the item and remove it 
@@ -49,7 +46,7 @@ class CircularQueue{
         
         // return the number of items in the queue
         int size(){
-            return sizeH; // this is a test will remove soon
+            return Last; // this is a test will remove soon
         } 
 
         // print the items in the list
