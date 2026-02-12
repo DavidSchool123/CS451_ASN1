@@ -4,21 +4,27 @@
 #include <iostream>
 using namespace std;
 
-
 class CircularQueue{
     private:
-        int First;
-        int Last;
+        int First; //position of the first item in the queue
+        int Last; //position of the last item in the queue
 
-        int MaxCapacity;
-        double* Items;
+        int MaxCapacity; //maximum capacity of the queue
+        double* Items; //the actual items stored in the queue
 
     public:
+        // implement the constructor
         CircularQueue(int N){
-            
-
+            MaxCapacity = N;
+            Items = new double[MaxCapacity];
+            First = 0;
+            Last = 0;
         }
-        ~CircularQueue();
+
+        // delete the dynamically allocated memory
+        ~CircularQueue(){
+            delete[] Items;
+        }
 
         void enqueue(double newitem);
         double dequeue();
