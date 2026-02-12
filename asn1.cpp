@@ -11,6 +11,7 @@ class CircularQueue{
 
         int MaxCapacity; //maximum capacity of the queue
         double* Items; //the actual items stored in the queue
+        int sizeH; // keep track when we add or remove from the array
 
     public:
         // implement the constructor
@@ -19,6 +20,7 @@ class CircularQueue{
             Items = new double[MaxCapacity];
             First = 0;
             Last = 0;
+            sizeH = 0;
         }
 
         // delete the dynamically allocated memory
@@ -26,11 +28,36 @@ class CircularQueue{
             delete[] Items;
         }
 
-        void enqueue(double newitem); // add new item to the end
+        void enqueue(double newitem){ // add new item to the end
+            if(isFull()){
+                cout << "Error: The queue if full" << endl;
+                return;
+            }
+            
+            Items[Last] = newitem;
+            Last += 1;    
+            sizeH += 1;      
+
+        }
         double dequeue(); // return the item and remove it 
         bool isEmpty(); // if the size is equal to 0
-        bool isFull(); // if the size is equal to the maz capasity
-        int size(); // return the number of items in the queue
+
+        // if the size is equal to the maz capasity
+        bool isFull(){
+            return false;
+        } 
+        
+        // return the number of items in the queue
+        int size(){
+            return sizeH; // this is a test will remove soon
+        } 
+
+        // print the items in the list
+        void printQueue(){
+            for(int i=0;i<size(); i++){
+                cout << Items[i] << " ";
+            }
+        }
 
 };
 
@@ -38,7 +65,11 @@ class CircularQueue{
 int main(){
     cout << "Begin" << endl;
     CircularQueue *circularQ = new CircularQueue(5); // create a test queue with a max capacity of 5
+    circularQ->enqueue(2);
+    circularQ->enqueue(4);
+    circularQ->enqueue(6);
 
+    circularQ->printQueue();
 
     delete circularQ;
     cout << "Ran Successful" << endl;
