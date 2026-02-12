@@ -28,7 +28,7 @@ class CircularQueue{
 
         void enqueue(double newitem){ // add new item to the end
             if(isFull()){
-                cout << "Error: The queue if full" << endl;
+                cout << "Error: The queue if full, cannot add: " << newitem << endl;
                 return;
             }
             
@@ -41,6 +41,9 @@ class CircularQueue{
 
         // if the size is equal to the maz capasity
         bool isFull(){
+            if(Last == MaxCapacity){
+                return true;
+            }
             return false;
         } 
         
@@ -65,11 +68,14 @@ int main(){
     circularQ->enqueue(2);
     circularQ->enqueue(4);
     circularQ->enqueue(6);
+    circularQ->enqueue(30);
+    circularQ->enqueue(12);
+    circularQ->enqueue(89);
 
     circularQ->printQueue();
 
     delete circularQ;
-    cout << "Ran Successful" << endl;
+    cout << "\nRan Successful" << endl;
     return 0;
 
 }
