@@ -1,5 +1,5 @@
 // @Author: David Ogunbanjo
-// @Author: Denis
+// @Author: Denis Moroz
 
 #include <iostream>
 using namespace std;
@@ -32,4 +32,5 @@ class CircularQueue{
 int main(){
     cout << "Hello" << endl;
     return 0;
+
 }
