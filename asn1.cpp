@@ -32,8 +32,9 @@ class CircularQueue{
         }
 
         void enqueue(double newitem){ // add new item to the end
+
             if(isFull()){
-                cout << "\nError: The queue if full, cannot add: " << newitem << endl;
+                cout << "Error: The queue if full, cannot add: " << newitem << endl;
                 return;
             }
             if(isEmpty()){
@@ -116,6 +117,14 @@ class CircularQueue{
         it is important to respect the queue structure and sum the elements in the queue order (and not 
         the array order which may be different).  */
         CircularQueue operator+(CircularQueue q2);
+
+        /* Overload the comparison operators == and != between two queues.    Two queues can 
+        only be equal if they have the same elements in the same queue order.    If the queues have 
+        different sizes, then it is already possible to conclude they are different.    Note that both queues 
+        must remain unchanged after the comparison. */
+        bool operator==(CircularQueue q2);
+        bool operator!=(CircularQueue q2);
+
 };
 
 double CircularQueue::operator[](int index) {
@@ -142,9 +151,8 @@ CircularQueue CircularQueue::operator+(CircularQueue q2){ // should the size be 
 
     CircularQueue newQueue(minSize); 
     // use that to loop through each and add their content 
-    // match the correct placement something like (First+i)%MaxCapasity. i is < the min size() (only adding up to the smallest)
     for(int i=0; i<minSize; i++){
-        //newQueue.enqueue(*this[i] + q2[i]);
+        newQueue.enqueue((*this)[i]+q2[i]); // use the operator from operator[]
     }
 
     return newQueue;
@@ -154,11 +162,13 @@ CircularQueue CircularQueue::operator+(CircularQueue q2){ // should the size be 
 
 
 int main(){
+
     cout << "TestBegin" << endl;
     CircularQueue circularQ(5); // create a test queue with a max capacity of 5
-    
+    CircularQueue circularQ2(5);
+
     //Queue Test: Pass
-    /*
+    cout << "Enquing..." << endl;
     circularQ.enqueue(2);
     circularQ.enqueue(4);
     circularQ.enqueue(6);
@@ -168,24 +178,42 @@ int main(){
     
     circularQ.printQueue();
 
-    circularQ.dequeue();
-    circularQ.dequeue();
-    
+    cout << "Dequing... ";
+    cout << circularQ.dequeue() << ", "; 
+    cout << circularQ.dequeue() << endl;
+        
     circularQ.printQueue();
 
+    cout << "Enquing..." << endl;
     circularQ.enqueue(9);
     circularQ.enqueue(13);
     circularQ.enqueue(79);
     
     circularQ.printQueue();
-    */
+    
     
 
-    // Operator Test
-    circularQ.enqueue(12);
-    circularQ.enqueue(4);
+    // Operator Test: Success
+    cout << "|" << endl;
 
-    cout << circularQ[0] << endl;
+    circularQ2.enqueue(5);
+    circularQ2.enqueue(9);
+    circularQ2.enqueue(10);
+
+    cout << "circularQ Element at index 2: " << circularQ[2] << endl;
+
+    cout << "CQ1: ";
+    circularQ.printQueue();
+
+    cout << "CQ2: ";
+    circularQ2.printQueue();
+
+    CircularQueue circularQ3 = circularQ+circularQ2;
+    cout << "CQ3: ";
+    circularQ3.printQueue();
+
+    cout << "|" << endl;
+    
 
 
     delete &circularQ;
