@@ -1,5 +1,10 @@
-// @Author: David Ogunbanjo
-// @Author: Denis Moroz.  
+/*
+* @Author: David Ogunbanjo
+* @Author: Denis Moroz. 
+* Description: 
+* Date: 2/13/2026
+* Source: https://www.geeksforgeeks.org/cpp/cpp-program-to-implement-circular-queue/
+*/
 
 #include <iostream>
 using namespace std;
@@ -28,7 +33,7 @@ class CircularQueue{
 
         void enqueue(double newitem){ // add new item to the end
             if(isFull()){
-                cout << "Error: The queue if full, cannot add: " << newitem << endl;
+                cout << "\nError: The queue if full, cannot add: " << newitem << endl;
                 return;
             }
             if(isEmpty()){
@@ -84,20 +89,22 @@ class CircularQueue{
 
         // print the items in the list
         void printQueue(){
-            cout << "\nQueue Items: ";
-            for(int i=First;i<=Last; i++){
-                cout << Items[i] << " ";
+            cout << "Queue Items: ";
+            // reference: geeksforgeeks
+            int i = First; 
+            while (true) { 
+                cout << Items[i] << " "; 
+                if (i == Last) break; //break once it reaches Last
+                i = (i + 1) % MaxCapacity; // We wrap i until it reaches Last
             }
-            cout << "\n";
-            cout << First << " and " << Last << endl;
-            
+            cout << endl;
         }
 
 };
 
 
 int main(){
-    cout << "Begin" << endl;
+    cout << "TestBegin" << endl;
     CircularQueue *circularQ = new CircularQueue(5); // create a test queue with a max capacity of 5
     
     circularQ->enqueue(2);
