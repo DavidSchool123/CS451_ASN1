@@ -52,7 +52,16 @@ class CircularQueue{
             }
 
             double temp = Items[First]; 
-            First = (First + 1) % MaxCapacity; // source: geeksforgeeks. This wraps the array
+            
+            if(First == Last){ // if there is only one item in there, reset it back to 0
+                //reset it back to -1
+                First = -1;
+                Last = -1;
+            }else{ // just remove from it. not exactly pust move First to the right
+                First = (First + 1) % MaxCapacity; // source: geeksforgeeks. This wraps the array
+
+            }
+            
 
             return temp;
         } 
@@ -75,14 +84,13 @@ class CircularQueue{
 
         // print the items in the list
         void printQueue(){
-            cout << "\n";
-            for(int i=First;i<Last; i++){
+            cout << "\nQueue Items: ";
+            for(int i=First;i<=Last; i++){
                 cout << Items[i] << " ";
             }
             cout << "\n";
             cout << First << " and " << Last << endl;
             
-
         }
 
 };
@@ -97,9 +105,9 @@ int main(){
     circularQ->enqueue(6);
     circularQ->enqueue(30);
     circularQ->enqueue(12);
-    //circularQ->enqueue(89);
-    /*
-    circularQ->printQueue();`
+    circularQ->enqueue(89);
+    
+    circularQ->printQueue();
 
     circularQ->dequeue();
     circularQ->dequeue();
@@ -109,7 +117,7 @@ int main(){
     circularQ->enqueue(9);
     circularQ->enqueue(13);
     circularQ->enqueue(79);
-    */
+    
     circularQ->printQueue();
 
     delete circularQ;
