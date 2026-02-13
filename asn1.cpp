@@ -55,7 +55,7 @@ class CircularQueue{
 
             if(isEmpty()){ // cant remove if there nothing in there
                 cout << "Error: array is empty, cannot remove." << endl;
-                return -1;
+                return;
             }
 
             double temp = Items[First]; 
@@ -83,7 +83,7 @@ class CircularQueue{
         } 
         
         // return the number of items in the queue
-        int size(){
+        int size(){ 
             if (isEmpty()) return 0; 
             if (Last >= First) return Last - First + 1; 
             return MaxCapacity - (First - Last - 1);
@@ -183,8 +183,7 @@ bool CircularQueue::operator!=(CircularQueue q2){
 }
 
 ostream& operator<<(ostream& o, CircularQueue q){
-    o << "Example test: ";
-
+    //o << "[" << q.printQueue() << "]";
 
     return o;
 }
@@ -246,7 +245,7 @@ int main(){
 
     cout << "|" << endl;
 
-    cout << circularQ3;
+    cout << circularQ3 << "Complete";
     
 
 
