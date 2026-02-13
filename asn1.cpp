@@ -100,13 +100,28 @@ class CircularQueue{
             cout << endl;
         }
 
+        /*
+        Overload the operator [ ] (array access), to return the element in that position (position 
+        according to the queue structure and not the array).     You only need to consider this operator 
+        to return elements (i.e., read-only). This is to facilitate this operation.*/
+        double operator[](int index);
 };
+
+double CircularQueue::operator[](int index) {
+    if(index >= MaxCapacity || index < 0 ){ // if its not in range
+        cout << "Error: index is not in the range" << endl;
+        return -1;
+    }
+    return Items[(First+index)%MaxCapacity]; // start from position 0 (whereever First is) then find the index
+
+}
 
 
 int main(){
     cout << "TestBegin" << endl;
     CircularQueue *circularQ = new CircularQueue(5); // create a test queue with a max capacity of 5
     
+    /*Queue Test: Pass
     circularQ->enqueue(2);
     circularQ->enqueue(4);
     circularQ->enqueue(6);
@@ -126,6 +141,12 @@ int main(){
     circularQ->enqueue(79);
     
     circularQ->printQueue();
+    */
+
+    // Operator Test
+    circularQ->enqueue(12);
+    circularQ->enqueue(4);
+
 
     delete circularQ;
     cout << "\nRan Successful" << endl;
