@@ -155,39 +155,40 @@ CircularQueue CircularQueue::operator+(CircularQueue q2){ // should the size be 
 
 int main(){
     cout << "TestBegin" << endl;
-    CircularQueue *circularQ = new CircularQueue(5); // create a test queue with a max capacity of 5
+    CircularQueue circularQ(5); // create a test queue with a max capacity of 5
     
-    /*Queue Test: Pass
-    circularQ->enqueue(2);
-    circularQ->enqueue(4);
-    circularQ->enqueue(6);
-    circularQ->enqueue(30);
-    circularQ->enqueue(12);
-    circularQ->enqueue(89);
+    //Queue Test: Pass
+    /*
+    circularQ.enqueue(2);
+    circularQ.enqueue(4);
+    circularQ.enqueue(6);
+    circularQ.enqueue(30);
+    circularQ.enqueue(12);
+    circularQ.enqueue(89);
     
-    circularQ->printQueue();
+    circularQ.printQueue();
 
-    circularQ->dequeue();
-    circularQ->dequeue();
+    circularQ.dequeue();
+    circularQ.dequeue();
     
-    circularQ->printQueue();
+    circularQ.printQueue();
 
-    circularQ->enqueue(9);
-    circularQ->enqueue(13);
-    circularQ->enqueue(79);
+    circularQ.enqueue(9);
+    circularQ.enqueue(13);
+    circularQ.enqueue(79);
     
-    circularQ->printQueue();
+    circularQ.printQueue();
     */
+    
 
     // Operator Test
-    circularQ->enqueue(12);
-    circularQ->enqueue(4);
+    circularQ.enqueue(12);
+    circularQ.enqueue(4);
 
-    cout << circularQ->operator[](1) << endl;  // Test proplem #2: Success
-    //cout << circularQ[0] << endl;
+    cout << circularQ[0] << endl;
 
 
-    delete circularQ;
+    delete &circularQ;
     cout << "\nRan Successful" << endl;
     return 0;
 
