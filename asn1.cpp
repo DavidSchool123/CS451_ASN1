@@ -157,7 +157,22 @@ CircularQueue CircularQueue::operator+(CircularQueue q2){ // should the size be 
 
     return newQueue;
     
+}
 
+bool CircularQueue::operator==(CircularQueue q2){
+    // check if the size are equal. if not return false
+    if(this->size() != q2.size()) return false;
+
+    // if not compare each element
+    for(int i=0;i<size();i++){
+        if((*this)[i] != q2[i]) return false;
+    }
+
+    return true;
+}
+
+bool CircularQueue::operator!=(CircularQueue q2){
+    return !((*this)==q2); // inverse of the other
 }
 
 
