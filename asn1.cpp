@@ -31,8 +31,14 @@ class CircularQueue{
                 cout << "Error: The queue if full, cannot add: " << newitem << endl;
                 return;
             }
+            if(isEmpty()){
+                First = 0;
+                Last = 0;
+            }else{
 
-            Last = (Last + 1) % MaxCapacity; // source: geeksforgeeks
+                Last = (Last + 1) % MaxCapacity; // source: geeksforgeeks. This wraps the array
+            }
+
             Items[Last] = newitem;
 
         }
@@ -46,28 +52,25 @@ class CircularQueue{
             }
 
             double temp = Items[First]; 
-            First = (First + 1) % MaxCapacity; // source: geeksforgeeks
+            First = (First + 1) % MaxCapacity; // source: geeksforgeeks. This wraps the array
 
             return temp;
         } 
 
         bool isEmpty(){ // if the size is equal to 0
-            return size() == 0;
+            return First == -1;
         }
 
         // if the size is equal to the maz capasity
         bool isFull(){
-            if(size() == MaxCapacity){
-                return true;
-            }
-            return false;
+            return (First == (Last + 1) % MaxCapacity);
         } 
         
         // return the number of items in the queue
         int size(){
-            if(Last > First) return Last - First; // we just subtract and get the absolute for it
-            if(First > Last) return First - Last;
-            return 0; // if first == last then it is empty
+            if (isEmpty()) return 0; 
+            if (Last >= First) return Last - First + 1; 
+            return MaxCapacity - (First - Last - 1);
         }
 
         // print the items in the list
