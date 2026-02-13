@@ -23,8 +23,8 @@ class CircularQueue{
         CircularQueue(int N){
             MaxCapacity = N;
             Items = new double[MaxCapacity];
-            First = -1;
-            Last = -1;
+            First = -1; // empty #
+            Last = -1;  // empty #
         }
 
         // delete the dynamically allocated memory
@@ -212,9 +212,10 @@ void CircularQueue::operator<<(double elem){
 void CircularQueue::operator>>(double outD){
     //dequeue and save result in outD
     outD = (*this).dequeue();
-    cout << outD;
+    cout << outD << endl;
 }
 
+/*
 int main(){
 
     cout << "TestBegin" << endl;
@@ -282,8 +283,9 @@ int main(){
     double test;
     circularQ4 >> test;
     circularQ4.printQueue();
+ 
     delete &circularQ;
     cout << "\nRan Successful" << endl;
     return 0;
 
-}
+}*/
