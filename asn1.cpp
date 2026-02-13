@@ -31,17 +31,9 @@ class CircularQueue{
                 cout << "Error: The queue if full, cannot add: " << newitem << endl;
                 return;
             }
-            
-            if(isEmpty()){ // empty
 
-                Last, First = 0;
-                Items[Last] = newitem;
-            }else{ //!empty
-
-                Last += 1;  // go to the next  
-                if(Last > MaxCapacity) Last = 0; // if > max cap, reset Last back to the start (circular it)
-                Items[Last] = newitem; // set item
-            }
+            Last = (Last + 1) % MaxCapacity; // source: geeksforgeeks
+            Items[Last] = newitem;
 
         }
 
@@ -53,10 +45,8 @@ class CircularQueue{
                 return -1;
             }
 
-            double temp = Items[First];
-
-            First += 1;
-            if(First > MaxCapacity) First = 0; // reset First back to the start (circular it)
+            double temp = Items[First]; 
+            First = (First + 1) % MaxCapacity; // source: geeksforgeeks
 
             return temp;
         } 
@@ -106,7 +96,7 @@ int main(){
     circularQ->enqueue(12);
     //circularQ->enqueue(89);
     /*
-    circularQ->printQueue();
+    circularQ->printQueue();`
 
     circularQ->dequeue();
     circularQ->dequeue();
