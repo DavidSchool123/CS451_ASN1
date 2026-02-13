@@ -1,5 +1,5 @@
 // @Author: David Ogunbanjo
-// @Author: Denis Moroz
+// @Author: Denis Moroz.  
 
 #include <iostream>
 using namespace std;
