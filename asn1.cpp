@@ -135,7 +135,13 @@ class CircularQueue{
         /*Overload the operator << to double. This operation must enqueue the double. For 
         example, “Q1 << 10;” must enqueue the number 10 into the object Q1. Please note 
         this is not the same as output overload (although it uses the same “operator<<”).*/
-        
+        void operator<<(double elem);
+
+        /*Overload the operator >> to double. This operation must dequeue an item and set the 
+        double parameter with it. For example, “Q1 >> d;” will dequeue a double from Q1 and 
+        set the variable d with it. Please note, this is not the same as input overload (although 
+        it uses the same “operator>>”).  */
+        void operator>>(double outD);
 
 };
 
@@ -198,8 +204,16 @@ ostream& operator<<(ostream& o, CircularQueue q1){ // show the queue items follo
     return o;
 }
 
-//friend ostream& operator<<(ostream&,double);
+void CircularQueue::operator<<(double elem){
+    (*this).enqueue(elem); // add into this queue
+    return;
+}
 
+void CircularQueue::operator>>(double outD){
+    //dequeue and save result in outD
+    outD = (*this).dequeue();
+    cout << outD;
+}
 
 int main(){
 
@@ -252,10 +266,22 @@ int main(){
 
     cout << "|" << endl;
 
-    cout << circularQ3 << "\nTest Pass!"; // can also take in other stream object
-    
+    cout << circularQ3 << "\nTest Pass!" << endl; // can also take in other stream object
 
+    cout << "|" << endl;
 
+    CircularQueue circularQ4(5);
+    circularQ4 << 79;
+    circularQ4 << 33;
+    circularQ4 << 45;
+
+    circularQ4.printQueue();
+
+    cout << "|" << endl;
+
+    double test;
+    circularQ4 >> test;
+    circularQ4.printQueue();
     delete &circularQ;
     cout << "\nRan Successful" << endl;
     return 0;
