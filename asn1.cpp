@@ -127,9 +127,29 @@ double CircularQueue::operator[](int index) {
 
 }
 
-CircularQueue CircularQueue::operator+(CircularQueue q2){
+CircularQueue CircularQueue::operator+(CircularQueue q2){ // should the size be equal
     // we are adding the two list together and save the result in *this
-    //(First+index)%MaxCapasity
+    int qS1 = this->size();
+    int qS2 = q2.size();
+    
+
+    int minSize;
+    if(qS1 < qS2 || qS1 == qS2){
+        minSize = qS1;
+    }else{
+        minSize = qS2;
+    }
+
+    CircularQueue newQueue(minSize); 
+    // use that to loop through each and add their content 
+    // match the correct placement something like (First+i)%MaxCapasity. i is < the min size() (only adding up to the smallest)
+    for(int i=0; i<minSize; i++){
+        //newQueue.enqueue(*this[i] + q2[i]);
+    }
+
+    return newQueue;
+    
+
 }
 
 
