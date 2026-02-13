@@ -55,7 +55,7 @@ class CircularQueue{
 
             if(isEmpty()){ // cant remove if there nothing in there
                 cout << "Error: array is empty, cannot remove." << endl;
-                return;
+                return -1;
             }
 
             double temp = Items[First]; 
@@ -69,7 +69,6 @@ class CircularQueue{
 
             }
             
-
             return temp;
         } 
 
@@ -84,8 +83,8 @@ class CircularQueue{
         
         // return the number of items in the queue
         int size(){ 
-            if (isEmpty()) return 0; 
-            if (Last >= First) return Last - First + 1; 
+            if (isEmpty()) return 0;  // base case: if empty
+            if (Last > First) return Last - First + 1; 
             return MaxCapacity - (First - Last - 1);
         }
 
@@ -131,7 +130,13 @@ class CircularQueue{
         (LLM must use fstream)
         This overload must show the queue items following the queue order.   Note  
         that the queue must remain unchanged after the output. */
-        friend ostream& operator<<(ostream& os, CircularQueue);
+        friend ostream& operator<<(ostream&, CircularQueue);
+
+        /*Overload the operator << to double. This operation must enqueue the double. For 
+        example, “Q1 << 10;” must enqueue the number 10 into the object Q1. Please note 
+        this is not the same as output overload (although it uses the same “operator<<”).*/
+        
+
 };
 
 double CircularQueue::operator[](int index) {
@@ -182,14 +187,18 @@ bool CircularQueue::operator!=(CircularQueue q2){
     return !((*this)==q2); // inverse of the other
 }
 
-ostream& operator<<(ostream& o, CircularQueue q){
-    //o << "[" << q.printQueue() << "]";
+ostream& operator<<(ostream& o, CircularQueue q1){ // show the queue items following the queue order
+    if(q1.size()> 0){
+
+        for(int i=0; i<q1.size(); i++){ // .printQueue() does not work so, manually print the element in there.
+            o << q1[i] << " ";
+        }
+    }
 
     return o;
 }
 
-
-
+//friend ostream& operator<<(ostream&,double);
 
 
 int main(){
@@ -220,9 +229,7 @@ int main(){
     circularQ.enqueue(13);
     circularQ.enqueue(79);
     
-    circularQ.printQueue();
-    
-    
+    circularQ.printQueue();   
 
     // Operator Test: Success
     cout << "|" << endl;
@@ -245,7 +252,7 @@ int main(){
 
     cout << "|" << endl;
 
-    cout << circularQ3 << "Complete";
+    cout << circularQ3 << "\nTest Pass!"; // can also take in other stream object
     
 
 
