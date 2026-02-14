@@ -1,7 +1,6 @@
 /*
 * @Author: David Ogunbanjo
 * @Author: Denis Moroz. 
-* Description: 
 * Date: 2/13/2026
 * Source: https://www.geeksforgeeks.org/cpp/cpp-program-to-implement-circular-queue/
 * source: complex.cpp (In class example)
@@ -32,30 +31,43 @@ class CircularQueue{
             delete[] Items;
         }
 
+        /*
+        * purpose: add an item to the queue
+        * input: double <newitem>
+        * return void
+        */
         void enqueue(double newitem){ // add new item to the end
 
-            if(isFull()){
-                cout << "Error: The queue if full, cannot add: " << newitem << endl;
+            if(isFull()){ // return error if the queue is at max capasity
+                cout << "Error: The queue if full, cannot add: " << newitem << endl; 
                 return;
             }
-            if(isEmpty()){
+            if(isEmpty()){ // reset the index from empty to prepare it for a new item
                 First = 0;
                 Last = 0;
             }else{
-
-                Last = (Last + 1) % MaxCapacity; // source: geeksforgeeks. This wraps the array
+                Last = (Last + 1) % MaxCapacity; // source: geeksforgeeks. This wraps the array. 
+                /*
+                What we learned/what we were trying to do: 
+                When the array is empty we set the First and Last to 0 then add the newitem into that index. If the array is not empty,
+                we increment Last (Last += 1) then add the newitem at that index. However if the Last == maxCapasity we set it to 0 (with last == 0 that wraps it; meaning it circulated)
+                */
             }
 
             Items[Last] = newitem;
 
         }
 
-        // return the item and remove it 
+        /*
+        * purpose: return the item and remove it
+        * input: none
+        * return:  double <temp>
+        */
         double dequeue(){
 
-            if(isEmpty()){ // cant remove if there nothing in there
+            if(isEmpty()){ // cant remove if there nothing in there; 
                 cout << "Error: array is empty, cannot remove." << endl;
-                return -1;
+                return -1; // print an error message
             }
 
             double temp = Items[First]; 
@@ -64,7 +76,7 @@ class CircularQueue{
                 //reset it back to -1
                 First = -1;
                 Last = -1;
-            }else{ // just remove from it. not exactly pust move First to the right
+            }else{ // just remove from it (move First to the right)
                 First = (First + 1) % MaxCapacity; // source: geeksforgeeks. This wraps the array
 
             }
@@ -72,23 +84,40 @@ class CircularQueue{
             return temp;
         } 
 
+        /*
+        * purpose: check if the array is empty
+        * input: none
+        * return bool <First == -1>
+        * */
         bool isEmpty(){ // if the size is equal to 0
             return First == -1;
         }
 
-        // if the size is equal to the maz capasity
+        /*
+        * purpose: if the size is equal to the max capasity
+        * input: none
+        * return bool
+        */
         bool isFull(){
             return (First == (Last + 1) % MaxCapacity);
         } 
         
-        // return the number of items in the queue
+        /*
+        * purpose: return the number of items in the queue
+        * input: none
+        * return: int
+        */
         int size(){ 
             if (isEmpty()) return 0;  // base case: if empty
             if (Last > First) return Last - First + 1; 
             return MaxCapacity - (First - Last - 1);
         }
 
-        // print the items in the list
+        /*
+        * purpose: print the items in the list
+        * input: none
+        * rerurn: void
+        */
         void printQueue(){
             cout << "Queue Items: ";
             // reference: geeksforgeeks
@@ -145,6 +174,11 @@ class CircularQueue{
 
 };
 
+/*
+* purpose: return the element in the index position
+* input: int <index>
+* return: double
+*/
 double CircularQueue::operator[](int index) {
     if(index >= MaxCapacity || index < 0 ){ // if its not in range
         cout << "Error: index is not in the range" << endl;
@@ -154,6 +188,11 @@ double CircularQueue::operator[](int index) {
 
 }
 
+/*
+* purpose: add two queues together
+* input: CircularQueue <q2>
+* return: CircularQueue <newQueue>
+*/
 CircularQueue CircularQueue::operator+(CircularQueue q2){ // should the size be equal
     // we are adding the two list together and save the result in *this
     int qS1 = this->size();
@@ -177,6 +216,11 @@ CircularQueue CircularQueue::operator+(CircularQueue q2){ // should the size be 
     
 }
 
+/*
+* purpose: Check if two queues are equal to each other
+* input: CircularQueue <q2>
+* return: bool
+*/
 bool CircularQueue::operator==(CircularQueue q2){
     // check if the size are equal. if not return false
     if(this->size() != q2.size()) return false;
@@ -189,11 +233,21 @@ bool CircularQueue::operator==(CircularQueue q2){
     return true;
 }
 
+/*
+* purpose: check if two queues are not equal (inverse of operator==)
+* input: CircularQueue <q2>
+* return: bool
+*/
 bool CircularQueue::operator!=(CircularQueue q2){
     return !((*this)==q2); // inverse of the other
 }
 
-ostream& operator<<(ostream& o, CircularQueue q1){ // show the queue items following the queue order
+/*
+* purpose: show the queue items following the queue order
+* input: ostream , CircularQueue <q1>
+* return: ostream
+*/
+ostream& operator<<(ostream& o, CircularQueue q1){ 
     if(q1.size()> 0){
 
         for(int i=0; i<q1.size(); i++){ // .printQueue() does not work so, manually print the element in there.
@@ -204,11 +258,21 @@ ostream& operator<<(ostream& o, CircularQueue q1){ // show the queue items follo
     return o;
 }
 
+/*
+* purpose: adding an item into the array through the << operator
+* input: double <elem>
+* return: void
+*/
 void CircularQueue::operator<<(double elem){
     (*this).enqueue(elem); // add into this queue
     return;
 }
 
+/*
+* purpose: remove an item from the array through the >> operator
+* input: double <ourD>
+* return: void
+*/
 void CircularQueue::operator>>(double outD){
     //dequeue and save result in outD
     outD = (*this).dequeue();
