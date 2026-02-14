@@ -107,7 +107,7 @@ class CircularQueue{
         * input: none
         * return: int
         */
-        int size(){ 
+        int size(){ // you have to draw it out to understand it (visual)
             if (isEmpty()) return 0;  // base case: if empty
             if (Last > First) return Last - First + 1; 
             return MaxCapacity - (First - Last - 1);
@@ -125,7 +125,8 @@ class CircularQueue{
             while (true) { 
                 cout << Items[i] << " "; 
                 if (i == Last) break; //break once it reaches Last
-                i = (i + 1) % MaxCapacity; // We wrap i until it reaches Last
+                int j = i+1; // increment i
+                i = (j) % MaxCapacity; // We wrap i until it reaches Last
             }
             cout << endl;
         }
@@ -279,7 +280,7 @@ void CircularQueue::operator>>(double outD){
     cout << outD << endl;
 }
 
-/*
+
 int main(){
 
     cout << "TestBegin" << endl;
@@ -352,4 +353,4 @@ int main(){
     cout << "\nRan Successful" << endl;
     return 0;
 
-}*/
+}
