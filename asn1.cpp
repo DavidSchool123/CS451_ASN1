@@ -2,8 +2,9 @@
 * @Author: David Ogunbanjo
 * @Author: Denis Moroz. 
 * Date: 2/13/2026
-* Source: https://www.geeksforgeeks.org/cpp/cpp-program-to-implement-circular-queue/
+* Source: https://www.geeksforgeeks.org/cpp/cpp-program-to-implement-circular-queue/.  
 * source: complex.cpp (In class example)
+* Note: Code doesnt fully work
 */
 
 #include <iostream>
@@ -19,7 +20,7 @@ class CircularQueue{
 
     public:
         // implement the constructor
-        CircularQueue(int N){
+        CircularQueue(int N){ // keep in mind that First & Last are gonna ast as an index
             MaxCapacity = N;
             Items = new double[MaxCapacity];
             First = -1; // empty #
@@ -46,7 +47,11 @@ class CircularQueue{
                 First = 0;
                 Last = 0;
             }else{
-                Last = (Last + 1) % MaxCapacity; // source: geeksforgeeks. This wraps the array. 
+                if(Last == MaxCapacity - 1){
+                    Last = 0;
+                }else{
+                    Last += 1;
+                }
                 /*
                 What we learned/what we were trying to do: 
                 When the array is empty we set the First and Last to 0 then add the newitem into that index. If the array is not empty,
@@ -77,7 +82,11 @@ class CircularQueue{
                 First = -1;
                 Last = -1;
             }else{ // just remove from it (move First to the right)
-                First = (First + 1) % MaxCapacity; // source: geeksforgeeks. This wraps the array
+                if(First == MaxCapacity -1){
+                   First = 0; 
+                }else{
+                    First += 1;
+                }
 
             }
             
@@ -99,7 +108,7 @@ class CircularQueue{
         * return bool
         */
         bool isFull(){
-            return (First == (Last + 1) % MaxCapacity);
+            return (First == (Last + 1) % MaxCapacity); 
         } 
         
         /*
@@ -110,7 +119,13 @@ class CircularQueue{
         int size(){ // you have to draw it out to understand it (visual)
             if (isEmpty()) return 0;  // base case: if empty
             if (Last > First) return Last - First + 1; 
-            return MaxCapacity - (First - Last - 1);
+            // not sure if this is right: the math isnt mathing
+            if(First > Last){ 
+                int temp = First - Last;
+                return MaxCapacity - (temp - 1);
+            }
+            
+            return 1; // the case where there is one element in the array First == Last
         }
 
         /*
@@ -126,7 +141,7 @@ class CircularQueue{
                 cout << Items[i] << " "; 
                 if (i == Last) break; //break once it reaches Last
                 int j = i+1; // increment i
-                i = (j) % MaxCapacity; // We wrap i until it reaches Last
+                i = (j) % MaxCapacity; // Makes sure it wraps until it reaches Last
             }
             cout << endl;
         }
@@ -280,7 +295,9 @@ void CircularQueue::operator>>(double outD){
     cout << outD << endl;
 }
 
-
+/*
+* purpose: test the function to visualize if they work
+*/
 int main(){
 
     cout << "TestBegin" << endl;
@@ -350,7 +367,11 @@ int main(){
     circularQ4.printQueue();
  
     delete &circularQ;
+    delete &circularQ2;
+    delete &circularQ3;
+    delete &circularQ4;
     cout << "\nRan Successful" << endl;
+    
     return 0;
 
 }
